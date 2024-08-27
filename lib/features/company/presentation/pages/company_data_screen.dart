@@ -14,8 +14,7 @@ import 'company_home_data_screen.dart';
 import 'company_product_screen.dart';
 
 class CompanyDataScreen extends StatefulWidget{
-  final SuppliersData suppliersData;
-  const CompanyDataScreen({super.key, required this.suppliersData});
+  const CompanyDataScreen({super.key});
   @override
   State<CompanyDataScreen> createState() => _CompanyDataScreenState();
 }
@@ -49,6 +48,7 @@ class _CompanyDataScreenState extends State<CompanyDataScreen> with SingleTicker
 
   @override
   Widget build(BuildContext context) {
+    final arguments = (ModalRoute.of(context)?.settings.arguments ?? <String, dynamic>{}) as Map;
     return DefaultScreen(
       sizeAppbar: Size.zero,
       backgroundColor: AppColors.whiteColor,
@@ -80,7 +80,7 @@ class _CompanyDataScreenState extends State<CompanyDataScreen> with SingleTicker
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             RichTextWidget(
-                              text: widget.suppliersData.supplierName,
+                              text: arguments["suppliersData"].supplierName,
                               fontColor: AppColors.labelColor,
                               fontWeight: AppFontWeight.bold,
                               fontSize: 20.sp,
@@ -108,14 +108,14 @@ class _CompanyDataScreenState extends State<CompanyDataScreen> with SingleTicker
                       controller: _tabController,
                       physics: const NeverScrollableScrollPhysics(),
                       children: [
-                        CompanyHomeDataScreen(suppliersData: widget.suppliersData,),
+                        CompanyHomeDataScreen(suppliersData: arguments["suppliersData"]),
                         const CompanyProductScreen(),
-                        Column(
+                        const Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
                           ],
                         ),
-                        Column(
+                        const Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
                           ],

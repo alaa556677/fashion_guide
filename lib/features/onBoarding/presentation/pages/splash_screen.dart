@@ -1,3 +1,5 @@
+import 'package:fashion_guide/core/constants/navigate_methods.dart';
+import 'package:fashion_guide/core/constants/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -17,7 +19,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     Future.delayed(const Duration(seconds: 3), (){
-      navigateToAndRemove(context, const OnBoardingScreen());
+      navigateToAndRemoveNamed(route: Routes.onBoardingScreen);
     });
     super.initState();
   }
@@ -34,12 +36,11 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SvgPicture.asset(AppImagesPath.appLogo),
-            SizedBox(height: 12.h,),
-            SvgPicture.asset(AppImagesPath.appName2, height: 86.h,),
+            Image.asset(AppImagesPath.appLogo, width: 284.w, height: 284.h,),
+            // SizedBox(height: 12.h,),
             const Spacer(),
             SvgPicture.asset(AppImagesPath.handsImages),
-            SizedBox(height: 60.h,),
+            // SizedBox(height: 60.h,),
           ],
         ),
       ),

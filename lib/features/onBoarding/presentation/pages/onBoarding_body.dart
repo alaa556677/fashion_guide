@@ -1,3 +1,5 @@
+import 'package:fashion_guide/core/constants/app_constants.dart';
+import 'package:fashion_guide/core/widgets/text_default.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -21,8 +23,21 @@ class OnBoardingBody extends StatelessWidget{
           ],
         ),
         SizedBox(height: 62.h,),
-        SvgPicture.asset(AppImagesPath.appName2),
-        SizedBox(height: 30.h,),
+        TextWidget(
+          text: "Fashion Guide",
+          fontWeight: AppFontWeight.semiBold,
+          fontColor: AppColors.blackColor,
+          fontSize: 28.sp,
+        ),
+        SizedBox(height: 6.h,),
+        TextWidget(
+          text: "For all products deals",
+          fontWeight: AppFontWeight.normal,
+          fontColor: AppColors.chatHintColor,
+          fontSize: 18.sp,
+        ),
+        // SvgPicture.asset(AppImagesPath.appName2),
+        SizedBox(height: 24.h,),
         RichTextWidget(
           text: description,
           fontColor: AppColors.textColorOnBoarding,

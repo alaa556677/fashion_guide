@@ -1,3 +1,5 @@
+import 'package:fashion_guide/core/constants/navigate_methods.dart';
+import 'package:fashion_guide/core/constants/routes.dart';
 import 'package:fashion_guide/features/company/presentation/pages/widgets/chat_bubble_mine_widget.dart';
 import 'package:fashion_guide/features/company/presentation/pages/widgets/chat_other_bubble_widget.dart';
 import 'package:flutter/cupertino.dart';
@@ -21,9 +23,7 @@ import '../../../products/data/model/products_data_model.dart';
 import '../../data/model/message_model.dart';
 
 class ChatScreen extends StatefulWidget{
-  final SuppliersData suppliersData;
-  final List <MessagesModel> messagesList;
-  const ChatScreen({super.key, required this.messagesList,required this.suppliersData});
+  const ChatScreen({super.key});
   @override
   State<ChatScreen> createState() => _ChatScreenState();
 }
@@ -52,6 +52,7 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final arguments = (ModalRoute.of(context)?.settings.arguments ?? <String, dynamic>{}) as Map;
     return BlocConsumer<HomeCubit, HomeStates>(
       listener: (context, state) {},
       builder: (context, state) {
@@ -71,13 +72,13 @@ class _ChatScreenState extends State<ChatScreen> {
                         children: [
                           InkWell(
                               onTap: (){
-                                navigateTo(context, const BaseScreen());
+                                navigateToNamed(route: Routes.baseScreen);
                               },
                               child: SvgPicture.asset(AppImagesPath.mineChatImage)),
                           SizedBox(width: 20.w,),
                           Expanded(
                             child: TextWidget(
-                              text: widget.suppliersData.supplierName,
+                              text: arguments["suppliersData"].supplierName,
                               fontSize: 16.sp,
                               fontWeight: AppFontWeight.semiBold,
                               fontColor: AppColors.textColorCategory,
@@ -116,10 +117,10 @@ class _ChatScreenState extends State<ChatScreen> {
                     Expanded(
                       child: ListView.separated(
                         reverse: true,
-                        itemBuilder: (context, index) => widget.messagesList[index].sendByMe
-                            ? ChatBubbleMineWidget(messagesEntity: widget.messagesList[index],)
-                            : ChatBubbleOtherWidget(messagesEntity: widget.messagesList[index],),
-                        itemCount: widget.messagesList.length,
+                        itemBuilder: (context, index) => arguments["messagesList"][index].sendByMe
+                            ? ChatBubbleMineWidget(messagesEntity: arguments["messagesList"][index],)
+                            : ChatBubbleOtherWidget(messagesEntity: arguments["messagesList"][index],),
+                        itemCount: arguments["messagesList"].length,
                         separatorBuilder: (context, index) => SizedBox(height: 20.h,),
                         controller: scrollController,
                       ),
@@ -167,11 +168,12 @@ class _ChatScreenState extends State<ChatScreen> {
                     InkWell(
                       onTap: (){
                         setState(() {
-                          widget.messagesList.insert (0 , MessagesModel(
+                          arguments["messagesList"].insert (0 , MessagesModel(
                               message: chatController.text,
                               sendByMe: true,
                               time: '6:33 Pm'
                           ));
+                          chatController.clear();
                         });
                       },
                       child: SvgPicture.asset(AppIconsPath.sendIcon)),

@@ -13,3 +13,4 @@ class AppScreenSize {
   static screenWidth (BuildContext context) => MediaQuery.of(context).size.width;
   static screenHeight (BuildContext context) => MediaQuery.of(context).size.height;
 }
+

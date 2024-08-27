@@ -1,4 +1,6 @@
 import 'dart:developer';
+import 'package:fashion_guide/core/constants/navigate_methods.dart';
+import 'package:fashion_guide/core/constants/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -36,7 +38,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
     } else if (scrollController.offset == position.minScrollExtent) {
       pc?.previousPage(duration: const Duration(milliseconds: 100), curve: Curves.linear);
     }else if(scrollController.offset > position.minScrollExtent){
-      navigateTo(context, const HomeScreen());
+      navigateToNamed(route: Routes.homeScreen);
     }
   }
   @override
@@ -59,7 +61,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                     InkWell(
                       onTap: (){
                         if(OnBoardingCubit.instance.isLast){
-                          navigateTo(context, const BaseScreen());
+                          navigateToNamed(route: Routes.login);
                         }
                       },
                       child: RichTextWidget(

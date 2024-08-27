@@ -1,3 +1,5 @@
+import 'package:fashion_guide/core/constants/navigate_methods.dart';
+import 'package:fashion_guide/core/constants/routes.dart';
 import 'package:fashion_guide/features/products/presentation/pages/widgets/button_increment.dart';
 import 'package:fashion_guide/features/products/presentation/pages/widgets/card_supplier_data.dart';
 import 'package:fashion_guide/features/products/presentation/pages/widgets/color_product_widget.dart';
@@ -21,8 +23,7 @@ import '../../../home/presentation/pages/widgets/view_more_widget.dart';
 import '../../data/model/products_data_model.dart';
 
 class ProductsDataScreen extends StatefulWidget{
-  final ProductDataModel productDataModel;
-  const ProductsDataScreen({super.key, required this.productDataModel});
+  const ProductsDataScreen({super.key});
   @override
   State<ProductsDataScreen> createState() => _ProductsDataScreenState();
 }
@@ -31,6 +32,7 @@ class _ProductsDataScreenState extends State<ProductsDataScreen> {
   int numberOfProduct = 1 ;
   @override
   Widget build(BuildContext context) {
+    final arguments = (ModalRoute.of(context)?.settings.arguments ?? <String, dynamic>{}) as Map;
     return BlocConsumer<HomeCubit, HomeStates>(
       listener: (context, state) {},
       builder: (context, state) {
@@ -48,7 +50,7 @@ class _ProductsDataScreenState extends State<ProductsDataScreen> {
                       width: AppScreenSize.screenWidth(context),
                       decoration: BoxDecoration(
                         image: DecorationImage(
-                          image: AssetImage(widget.productDataModel.productModel.imagePath),
+                          image: AssetImage(arguments["productDataModel"].productModel.imagePath),
                         ),
                       ),
                     ),
@@ -67,7 +69,7 @@ class _ProductsDataScreenState extends State<ProductsDataScreen> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     RichTextWidget(
-                                      text: widget.productDataModel.productModel.productName,
+                                      text: arguments["productDataModel"].productModel.productName,
                                       fontColor: AppColors.buttonColorAll,
                                       fontWeight: AppFontWeight.semiBold,
                                       fontSize: 20.sp,
@@ -81,7 +83,7 @@ class _ProductsDataScreenState extends State<ProductsDataScreen> {
                           ),
                           SizedBox(height: 40.h,),
                           RichTextWidget(
-                            text: widget.productDataModel.fullDescription,
+                            text: arguments["productDataModel"].fullDescription,
                             fontSize: 16.sp,
                             fontWeight: AppFontWeight.regular,
                             fontColor: AppColors.textColorOnBoarding,
@@ -91,7 +93,7 @@ class _ProductsDataScreenState extends State<ProductsDataScreen> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               TextWidget(
-                                text: '${widget.productDataModel.productModel.price}  \$',
+                                text: '${arguments["productDataModel"].productModel.price}  \$',
                                 fontColor: AppColors.labelColor,
                                 fontWeight: AppFontWeight.mediumBold,
                                 fontSize: 24.sp,
@@ -137,21 +139,21 @@ class _ProductsDataScreenState extends State<ProductsDataScreen> {
                               )
                             ],
                           ),
-                          SizedBox(height: 38.h,),
-                          TextWidget(
-                            text: 'Colors',
-                            fontColor: AppColors.textColorCategory,
-                            fontSize: 16.sp,
-                            fontWeight: AppFontWeight.medium,
-                          ),
-                          SizedBox(height: 16.h,),
-                          Wrap(
-                            runSpacing: 20.h,
-                            spacing: 20.w,
-                            children: widget.productDataModel.productColors.map((e) => ColorProductWidget(
-                              colorProduct: HexColor(e.productColor),
-                            )).toList(),
-                          ),
+                          // SizedBox(height: 38.h,),
+                          // TextWidget(
+                          //   text: 'Colors',
+                          //   fontColor: AppColors.textColorCategory,
+                          //   fontSize: 16.sp,
+                          //   fontWeight: AppFontWeight.medium,
+                          // ),
+                          // SizedBox(height: 16.h,),
+                          // Wrap(
+                          //   runSpacing: 20.h,
+                          //   spacing: 20.w,
+                          //   children: arguments["productDataModel"].productColors.map((e) => ColorProductWidget(
+                          //     colorProduct: HexColor(e.productColor),
+                          //   )).toList(),
+                          // ),
                           SizedBox(height: 20.h,),
                           TextWidget(
                             text: 'Attributes',
@@ -161,7 +163,7 @@ class _ProductsDataScreenState extends State<ProductsDataScreen> {
                           ),
                           SizedBox(height: 8.h,),
                           RichTextWidget(
-                            text: widget.productDataModel.attributes,
+                            text: arguments["productDataModel"].attributes,
                             fontSize: 16.sp,
                             fontWeight: AppFontWeight.regular,
                             fontColor: AppColors.textColorOnBoarding,
@@ -174,7 +176,7 @@ class _ProductsDataScreenState extends State<ProductsDataScreen> {
                             fontWeight: AppFontWeight.medium,
                           ),
                           SizedBox(height: 8.h,),
-                          CardSupplierData(suppliersData: widget.productDataModel.suppliersData,),
+                          CardSupplierData(suppliersData: arguments["productDataModel"].suppliersData,),
                           SizedBox(height: 34.h,),
                           ViewMoreWidget(
                             title: 'Recently Arrive',
@@ -204,10 +206,10 @@ class _ProductsDataScreenState extends State<ProductsDataScreen> {
                         fontWeightText: AppFontWeight.regular,
                         radius: 20.r,
                         onPressed: (){
-                          navigateTo(context, ChatScreen(
-                            suppliersData: widget.productDataModel.suppliersData,
-                            messagesList: HomeCubit.instance.messagesList,
-                          ));
+                          navigateToNamed(route: Routes.chatScreen, arguments: {
+                            "suppliersData" : arguments["productDataModel"].suppliersData,
+                            "messagesList" : HomeCubit.instance.messagesList,
+                          });
                         },
                       ),
                     ),

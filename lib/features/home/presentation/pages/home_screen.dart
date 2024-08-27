@@ -58,7 +58,8 @@ class _HomeScreenState extends State<HomeScreen>
           children: [
             Row(
               children: [
-                SvgPicture.asset(AppImagesPath.profileImage),
+                Image.asset(AppImagesPath.appLogoOnly, width: 60.w, height: 80.h,),
+                // SvgPicture.asset(AppImagesPath.profileImage),
                 SizedBox(width: 8.w,),
                 Expanded(
                   child: Row(

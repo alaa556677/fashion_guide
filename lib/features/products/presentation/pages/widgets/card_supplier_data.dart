@@ -1,3 +1,5 @@
+import 'package:fashion_guide/core/constants/navigate_methods.dart';
+import 'package:fashion_guide/core/constants/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -107,7 +109,9 @@ class CardSupplierData extends StatelessWidget{
                   fontWeightText: AppFontWeight.regular,
                   radius: 20.r,
                   onPressed: (){
-                    navigateTo(context, CompanyDataScreen(suppliersData: suppliersData,));
+                    navigateToNamed(route: Routes.companyDataScreen, arguments: {
+                      "suppliersData" : suppliersData
+                    });
                   },
                 ),
               ),

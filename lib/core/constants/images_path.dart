@@ -3,7 +3,8 @@ class AppImagesPath{
   static const String earthImage = 'assets/images/earth_image.svg';
   static const String appName = 'assets/images/app_name.svg';
   static const String appName2 = 'assets/images/app_name2.svg';
-  static const String appLogo = 'assets/images/app_logo.svg';
+  static const String appLogo = 'assets/images/app_logo.png';
+  static const String appLogoOnly = 'assets/images/app_logo_only.png';
   static const String handsImages = 'assets/images/hands_image.svg';
   static const String profileImage = 'assets/images/image_profile.svg';
   static const String productBackground = 'assets/images/product_background_image.svg';

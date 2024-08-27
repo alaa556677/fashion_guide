@@ -1,3 +1,5 @@
+import 'package:fashion_guide/core/constants/navigate_methods.dart';
+import 'package:fashion_guide/core/constants/routes.dart';
 import 'package:fashion_guide/features/company/presentation/pages/widgets/card_category_items.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -175,10 +177,10 @@ class CompanyHomeDataScreen extends StatelessWidget{
                   fontWeightText: AppFontWeight.regular,
                   radius: 20.r,
                   onPressed: (){
-                    navigateTo(context, ChatScreen(
-                      suppliersData: suppliersData,
-                      messagesList: HomeCubit.instance.messagesList,
-                    ));
+                    navigateToNamed(route: Routes.chatScreen, arguments: {
+                      "suppliersData" : suppliersData,
+                      "messagesList" : HomeCubit.instance.messagesList
+                    });
                   },
                 ),
               ),

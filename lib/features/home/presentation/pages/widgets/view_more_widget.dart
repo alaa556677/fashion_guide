@@ -1,3 +1,5 @@
+import 'package:fashion_guide/core/constants/navigate_methods.dart';
+import 'package:fashion_guide/core/constants/routes.dart';
 import 'package:fashion_guide/features/home/presentation/pages/widgets/product_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -57,7 +59,9 @@ class ViewMoreWidget extends StatelessWidget{
             ),
             itemBuilder: (context, index) => GestureDetector(
               onTap: (){
-                navigateTo(context, ProductsDataScreen(productDataModel: list[index],));
+                navigateToNamed(route: Routes.productsDataScreen, arguments: {
+                  "productDataModel" : list[index]
+                });
               },
               child: ProductCard(
                 productDataModel: list[index],
