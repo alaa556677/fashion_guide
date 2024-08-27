@@ -46,6 +46,9 @@ dependencies:
   curved_navigation_bar:
   curved_labeled_navigation_bar:
   flutter_native_splash:
+  bloc:
+  dartz:
+  equatable:
 
 dev_dependencies:
   flutter_test:

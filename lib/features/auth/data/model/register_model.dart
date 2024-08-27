@@ -1,11 +1,10 @@
 import '../../../../core/constants/error_model.dart';
+import '../../domain/entity/register_entity.dart';
 
-class RegisterModel {
-  bool? isSuccess;
-  List<Errors>? errors;
-  bool? data;
+// ignore: must_be_immutable
+class RegisterModel extends RegisterEntity{
 
-  RegisterModel({this.isSuccess, this.errors, this.data});
+  RegisterModel({super.isSuccess, super.errors, super.data});
 
   RegisterModel.fromJson(Map<String, dynamic> json) {
     isSuccess = json['isSuccess'];
