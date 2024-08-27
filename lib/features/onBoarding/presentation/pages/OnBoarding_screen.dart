@@ -61,7 +61,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                     InkWell(
                       onTap: (){
                         if(OnBoardingCubit.instance.isLast){
-                          navigateToNamed(route: Routes.login);
+                          navigateToNamed(route: Routes.baseScreen);
                         }
                       },
                       child: RichTextWidget(
