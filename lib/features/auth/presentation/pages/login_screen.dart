@@ -38,6 +38,7 @@ class LoginScreen extends StatelessWidget {
               child: Column(
                 children: [
                   TopCircle(),
+                    
                   Expanded(
                     child: Padding(
                       padding: EdgeInsets.symmetric(horizontal: 36.w),
