@@ -49,6 +49,8 @@ dependencies:
   bloc:
   dartz:
   equatable:
+  synchronized:
+  get_it:
 
 dev_dependencies:
   flutter_test:

@@ -1,3 +1,4 @@
+import 'package:fashion_guide/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:fashion_guide/features/company/presentation/pages/chat_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,17 +20,21 @@ import 'features/onBoarding/presentation/pages/onBoarding_body.dart';
 import 'features/onBoarding/presentation/pages/splash_screen.dart';
 import 'features/products/presentation/cubit/products_cubit.dart';
 import 'features/products/presentation/pages/product_data_screen.dart';
+import 'locator.dart'as di;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await CacheHelper.init();
   DioHelper.init();
+  di.setup();
   Bloc.observer = MyBlocObserver();
   runApp(const MyApp());
 }
 
 final navigatorKey = GlobalKey<NavigatorState>();
 final GlobalKey<ScaffoldMessengerState> snackBarKey = GlobalKey<ScaffoldMessengerState>();
+
+BuildContext currentContext = navigatorKey.currentContext!;
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -43,10 +48,11 @@ class MyApp extends StatelessWidget {
       builder: (BuildContext context, Widget? child) {
         return MultiBlocProvider(
           providers: [
-            BlocProvider<OnBoardingCubit>(create: (_) => OnBoardingCubit(),),
-            BlocProvider<BaseScreenCubit>(create: (_) => BaseScreenCubit(),),
-            BlocProvider<HomeCubit>(create: (_) => HomeCubit()..initDummy(),),
-            BlocProvider<ProductsCubit>(create: (_) => ProductsCubit(),),
+            BlocProvider<OnBoardingCubit>(create: (_) =>di.locator<OnBoardingCubit>(),),
+            BlocProvider<BaseScreenCubit>(create: (_) =>di.locator<BaseScreenCubit>() ,),
+            BlocProvider<HomeCubit>(create: (_) => di.locator<HomeCubit>()..initDummy(),),
+            BlocProvider<ProductsCubit>(create: (_) => di.locator<ProductsCubit>() ,),
+            BlocProvider<AuthCubit>(create: (_) => di.locator<AuthCubit>(),),
           ],
           child: MaterialApp(
             navigatorKey: navigatorKey,
@@ -59,7 +65,7 @@ class MyApp extends StatelessWidget {
                   wid = const SplashScreen();
                   break;
                 case Routes.login:
-                  wid = const LoginScreen();
+                  wid = LoginScreen();
                   break;
                 case Routes.register:
                   wid = const RegisterScreen();
@@ -94,7 +100,7 @@ class MyApp extends StatelessWidget {
               return null;
             },
             navigatorObservers: [RouteObserver<PageRoute>()],
-            initialRoute: Routes.onBoardingScreen,
+            initialRoute: Routes.login,
           ),
         );
       },

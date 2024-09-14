@@ -1,4 +1,4 @@
 class UrlConstants {
 //////////////////////////////////////////////////////////////////////////////// base url
-  static const String baseurl = 'http://ecommerceapp.runasp.net/api';
+  static const String baseurl = 'http://ecommerceapp.runasp.net/';
 }
