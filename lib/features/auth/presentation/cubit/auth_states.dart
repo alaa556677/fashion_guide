@@ -17,3 +17,7 @@ class LoginSuccessState extends AuthStates{}
 class LoginFailureState extends AuthStates{}
 
 class LoginErrorState extends AuthStates{}
+
+class ClearErrorState extends AuthStates{}
+
+class ErrorPrivacyState extends AuthStates{}

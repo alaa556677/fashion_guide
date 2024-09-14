@@ -21,6 +21,7 @@ class AppColors {
   static Color chatBubbleOtherColor = HexColor('#DEF0BF');
   static Color chatHintColor = HexColor('#929FB2');
   static Color greyColor = HexColor('#424040');
+  static Color hintColor = HexColor('#949090');
 }
 
 

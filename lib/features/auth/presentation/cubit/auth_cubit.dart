@@ -9,16 +9,19 @@ class AuthCubit extends Cubit <AuthStates>{
   static final AuthCubit _authCubit = BlocProvider.of<AuthCubit>(navigatorKey.currentState!.context);
   static AuthCubit get instance => _authCubit;
 ////////////////////////////////////////////////////////////////////////////////
+  String? errorMessage;
   RegisterUseCase registerUseCase;
   register({required int role,required String userName,required String email ,required String password}) async {
     emit(RegisterLoadingState());
     final result = await registerUseCase(role,userName,email,password);
     result.fold((failure) {
+      errorMessage = failure.errorMessage;
       emit(RegisterFailureState());
     },(register) {
       if (register.isSuccess == true) {
         emit(RegisterSuccessState());
       } else {
+        errorMessage = register.errors?.first.message;
         emit(RegisterErrorState());
       }
     });
@@ -30,15 +33,26 @@ class AuthCubit extends Cubit <AuthStates>{
     emit(LoginLoadingState());
     final result = await loginUseCase(email,password);
     result.fold((failure) {
-      print('ssssssssssssssssss${failure.errorMessage}');
+      errorMessage = failure.errorMessage;
       emit(LoginFailureState());
-    },(register) {
-      if (register.isSuccess == true) {
+    },(signin) {
+      if (signin.isSuccess == true) {
         emit(LoginSuccessState());
       } else {
+        errorMessage = signin.errors?.first.message;
         emit(LoginErrorState());
       }
     });
   }
+////////////////////////////////////////////////////////////////////////////////
 
+clearErrorMessage(){
+  errorMessage = null;
+  emit(ClearErrorState());
+}
+errorPrivacyPolicy(){
+  errorMessage = 'Please agree to privacy policy';
+  emit(ErrorPrivacyState());
+
+}
 }

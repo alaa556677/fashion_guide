@@ -17,4 +17,6 @@ class AppIconsPath{
   static const String attachIcon = 'assets/icons/attach_icon.svg';
   static const String emojiIcon = 'assets/icons/emoji_icon.svg';
   static const String micIcon = 'assets/icons/mic_icon.svg';
+  static const String emailIcon = 'assets/icons/email_icon.svg';
+  static const String passwordIcon = 'assets/icons/password_icon.svg';
 }

@@ -10,15 +10,15 @@ class TopCircle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 173.h,
+      height: 120.h,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           SizedBox(
-            width: 30.w,
-            height: 18.h,
+            width: 40.w,
+            height: 22.h,
             child: Transform.scale(
-              scale: 8.r,
+              scale: 7.r,
               child: SvgPicture.asset('assets/images/top_circle.svg'),
             ),
           ),

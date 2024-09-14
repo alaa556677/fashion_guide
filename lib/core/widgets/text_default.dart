@@ -12,6 +12,7 @@ class TextWidget extends StatelessWidget {
   final double? fontSize;
   final TextDecoration? textDecoration;
   final Color? decorationColor;
+  final double? textHeight;
 
   const TextWidget({
     required this.text,
@@ -25,7 +26,8 @@ class TextWidget extends StatelessWidget {
     this.fontFamily,
     this.fontSize,
     this.textDecoration,
-    this.decorationColor
+    this.decorationColor,
+    this.textHeight
   });
 
   @override
@@ -38,7 +40,8 @@ class TextWidget extends StatelessWidget {
         fontSize: fontSize,
         fontFamily: fontFamily,
         decoration: textDecoration,
-        decorationColor: decorationColor
+        decorationColor: decorationColor,
+        height: textHeight
       ),
       textAlign: textAlign,
       maxLines: maxLines,

@@ -68,7 +68,7 @@ class MyApp extends StatelessWidget {
                   wid = LoginScreen();
                   break;
                 case Routes.register:
-                  wid = const RegisterScreen();
+                  wid =  RegisterScreen();
                   break;
                 case Routes.baseScreen:
                   wid = const BaseScreen();

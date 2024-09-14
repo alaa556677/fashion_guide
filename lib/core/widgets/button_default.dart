@@ -13,6 +13,7 @@ class ButtonCustomWidget extends StatelessWidget {
   dynamic onPressed;
   FontWeight? fontWeightText;
   Color borderColor;
+  Widget? loadingWidget;
 
   ButtonCustomWidget({
     super.key,
@@ -26,7 +27,8 @@ class ButtonCustomWidget extends StatelessWidget {
     this.buttonHeight,
     this.fontWeightText = FontWeight.w700,
     this.horizontalPadding = 0,
-    this.borderColor = Colors.transparent
+    this.borderColor = Colors.transparent,
+    this.loadingWidget
   });
 
   @override
@@ -43,7 +45,7 @@ class ButtonCustomWidget extends StatelessWidget {
           border: Border.all(color: borderColor)
         ),
         alignment: Alignment.center,
-        child: TextWidget(
+        child:loadingWidget ?? TextWidget(
           text: "$text",
           fontColor: color,
           fontWeight: fontWeightText,
