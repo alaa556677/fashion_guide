@@ -46,13 +46,12 @@ class AuthCubit extends Cubit <AuthStates>{
   }
 ////////////////////////////////////////////////////////////////////////////////
 
-clearErrorMessage(){
-  errorMessage = null;
-  emit(ClearErrorState());
-}
-errorPrivacyPolicy(){
-  errorMessage = 'Please agree to privacy policy';
-  emit(ErrorPrivacyState());
-
-}
+  clearErrorMessage(){
+    errorMessage = null;
+    emit(ClearErrorState());
+  }
+  errorPrivacyPolicy(){
+    errorMessage = 'Please agree to privacy policy';
+    emit(ErrorPrivacyState());
+  }
 }
