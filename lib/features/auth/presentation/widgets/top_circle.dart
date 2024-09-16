@@ -10,7 +10,8 @@ class TopCircle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 120.h,
+      // height: 120.h,
+      height: MediaQuery.of(context).size.height * 0.15,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
