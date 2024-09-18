@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../styles/colors.dart';
@@ -28,7 +29,8 @@ class DefaultTextFormField extends StatefulWidget {
     this.fontSize,
     this.border,
     this.maxLines,
-    this.readOnly
+    this.readOnly,
+    this.inputFormatters
   }) : super(key: key);
   double? height;
   Widget? prefix;
@@ -51,7 +53,7 @@ class DefaultTextFormField extends StatefulWidget {
   InputBorder? border;
   int? maxLines;
   bool? readOnly;
-
+  List<TextInputFormatter>? inputFormatters;
   @override
   State<DefaultTextFormField> createState() => _DefaultTextFormFieldState();
 }
@@ -71,6 +73,7 @@ class _DefaultTextFormFieldState extends State<DefaultTextFormField> {
       ),
       child: TextFormField(
         onTap: widget.onTap,
+        inputFormatters:widget.inputFormatters,
         readOnly: widget.readOnly ?? false,
         onChanged:(value)=> widget.onChanged?.call(value),
         validator: widget.validator,

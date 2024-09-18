@@ -93,7 +93,7 @@ class MyApp extends StatelessWidget {
                   wid = const HomeScreen();
                   break;
                 case Routes.addProductScreen:
-                  wid = const AddProductPage();
+                  wid =  AddProductPage();
                   break;
                 case Routes.addCategoryScreen:
                   wid = AddCategoryPage();
@@ -110,7 +110,7 @@ class MyApp extends StatelessWidget {
               return null;
             },
             navigatorObservers: [RouteObserver<PageRoute>()],
-            initialRoute: Routes.addCategoryScreen,
+            initialRoute: Routes.baseScreen,
           ),
         );
       },

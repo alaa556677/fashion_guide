@@ -1,10 +1,15 @@
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:fashion_guide/core/custom_drop_down_search.dart';
+import 'package:fashion_guide/features/category/presentation/cubit/category_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../core/constants/navigate_methods.dart';
+import '../../../../core/constants/routes.dart';
 import '../../../../core/styles/colors.dart';
 import '../../../../core/widgets/button_default.dart';
 import '../../../../core/widgets/default_text_form_field.dart';
@@ -13,22 +18,41 @@ import '../../../../core/widgets/text_default.dart';
 import '../cubit/products_cubit.dart';
 import '../cubit/products_states.dart';
 
-class AddProductPage extends StatelessWidget {
+class AddProductPage extends StatefulWidget {
   AddProductPage({super.key});
 
+  @override
+  State<AddProductPage> createState() => _AddProductPageState();
+}
+
+class _AddProductPageState extends State<AddProductPage> {
   TextEditingController nameController = TextEditingController();
+
   TextEditingController priceController = TextEditingController();
+
   TextEditingController categoryController = TextEditingController();
+
   TextEditingController descriptionController = TextEditingController();
+
   TextEditingController discountController = TextEditingController();
 
   final formKey = GlobalKey<FormState>();
 
   @override
+  void initState() {
+    ProductsCubit.instance.getAllCategories();
+    super.initState();
+  }
+    bool? isError = false;
+  @override
   Widget build(BuildContext context) {
+
     return BlocConsumer<ProductsCubit, ProductsStates>(
       listener: (context, state) {
+        if(state is AddProductSuccessState){
+          navigateToAndRemoveNamed(route: Routes.baseScreen);
 
+        }
       },
       builder: (context, state) {
         return DefaultScreen(
@@ -41,13 +65,13 @@ class AddProductPage extends StatelessWidget {
             fontSize: 16.sp,
           ),
           centerTitle: true,
-          actions: [
-            IconButton(
-              onPressed: () => Navigator.pop(context),
-              icon: Icon(Icons.chevron_right_outlined, size: 32.r,),
-            ),
-          ],
-          body: SingleChildScrollView(
+
+          body:
+          state is GetCategoriesLoadingState
+              ? LinearProgressIndicator(
+            minHeight: 0.5,
+          )
+          :SingleChildScrollView(
             child: Column(
               children: [
                 SizedBox(height: 20.h,),
@@ -64,11 +88,13 @@ class AddProductPage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            ProductsCubit.instance.uploadImage();
+                          },
                           child: Container(
                             decoration: BoxDecoration(
                               border: Border.all(
-                                color: AppColors.greyColor,
+                                color: isError == true ? Colors.red :  AppColors.greyColor,
                                 width: 0.5,
                               ),
                               borderRadius: BorderRadius.circular(12.0),
@@ -76,7 +102,8 @@ class AddProductPage extends StatelessWidget {
                             child: Padding(
                               padding: EdgeInsets.symmetric(vertical: 12.h),
                               child: Center(
-                                child: Column(
+                                child: ProductsCubit.instance.filePath == null
+                                    ? Column(
                                   children: [
                                     Image.asset('assets/images/add_image.PNG'),
                                     SizedBox(height: 20.h,),
@@ -84,7 +111,7 @@ class AddProductPage extends StatelessWidget {
                                       text: 'Add Image',
                                     ),
                                   ],
-                                ),
+                                ):Image.file(ProductsCubit.instance.filePath!,height: 320,),
                               ),
                             ),
                           ),
@@ -97,14 +124,15 @@ class AddProductPage extends StatelessWidget {
                         DefaultTextFormField(
                           hintText: 'Name',
                           filledColor: Colors.grey.withOpacity(0.3),
-                          height: 44,
+                          height: 72,
                           validator: (value) {
                             if(value!.isEmpty) {
                               return "required Field";
                             }
                           },
+                          controller: nameController,
                         ),
-                        SizedBox(height: 12.h,),
+                        SizedBox(height: 6.h,),
                         TextWidget(
                           text: 'Price',
                         ),
@@ -112,28 +140,61 @@ class AddProductPage extends StatelessWidget {
                         DefaultTextFormField(
                           hintText: 'Price',
                           filledColor: Colors.grey.withOpacity(0.3),
-                          height: 44,
+                          height: 72,
                           validator: (value) {
                             if(value!.isEmpty) {
                               return "required Field";
                             }
                           },
+                          inputFormatters: <TextInputFormatter>[
+                            FilteringTextInputFormatter.digitsOnly,
+                          ],
+                          controller: priceController,
+                        ),
+                        SizedBox(height: 6.h,),
+                        TextWidget(
+                          text: 'Discount',
                         ),
                         SizedBox(height: 12.h,),
+                        DefaultTextFormField(
+                          hintText: 'Discount',
+                          filledColor: Colors.grey.withOpacity(0.3),
+                          height: 72,
+                          validator: (value) {
+                            if(value!.isEmpty) {
+                              return "required Field";
+                            }
+                          },
+                          inputFormatters: <TextInputFormatter>[
+                            FilteringTextInputFormatter.digitsOnly,
+                          ],
+                          controller: discountController,
+                        ),
+                        SizedBox(height: 6.h,),
+
                         TextWidget(
                           text: 'Category Id',
                         ),
                         SizedBox(height: 12.h,),
-                        DefaultTextFormField(
-                          hintText: 'Category Id',
-                          filledColor: Colors.grey.withOpacity(0.3),
-                          height: 44,
+                        CustomDropDownSearch(
+                          hintText: 'Products',
+                          selectedItem: ProductsCubit.instance.selectedProductItem
+                              ?? ProductsCubit.instance.categoriesEntity?.data?.first.name ?? ''  ,
+                          items:  ProductsCubit.instance.categoriesEntity?.data,
+                          enabled: true,
                           validator: (value) {
-                            if(value!.isEmpty) {
-                              return "required Field";
+                            if (value!.isEmpty) {
+                              return 'required';
                             }
+                            return null;
                           },
+                          onChange: (val) {
+                            ProductsCubit.instance.changeSelectedProduct(val);
+                            setState(() {});
+                          },
+                          height: 56,
                         ),
+
                         SizedBox(height: 12.h,),
                         TextWidget(
                           text: 'Description',
@@ -148,6 +209,7 @@ class AddProductPage extends StatelessWidget {
                               return "required Field";
                             }
                           },
+                          controller: descriptionController,
                         ),
                       ],
                     ),
@@ -163,17 +225,23 @@ class AddProductPage extends StatelessWidget {
                     if (formKey.currentState!.validate()) {
                       ProductsCubit.instance.addProduct(
                         name: nameController.text,
-                        price: double.parse(priceController.text),
+                        price: double.tryParse(priceController.text)!,
                         description: descriptionController.text,
-                        discount: double.parse(discountController.text),
-                        categoryId: nameController.text,
+                        discount:double.tryParse(discountController.text)!,
+                        categoryId:  ProductsCubit.instance.selectedProductItem != null
+                            ? ProductsCubit.instance.selectedProductItem!.id!.toInt()
+                            : ProductsCubit.instance.categoriesEntity!.data != null
+                            ? ProductsCubit.instance.categoriesEntity!.data!.first.id!.toInt()
+                        :0,
                         image: ProductsCubit.instance.filePath == null
                             ? File("")
                             : ProductsCubit.instance.filePath!,
                         isImageExist: ProductsCubit.instance.filePath == null ? false : true,
                         imageByte:  ProductsCubit.instance.filePath == null ? Uint8List(10) : ProductsCubit.instance.imageByte,
                       );
-
+                      setState(() {
+                        isError = ProductsCubit.instance.filePath == null ? true : false;
+                      });
                     }
                   },
                 ),

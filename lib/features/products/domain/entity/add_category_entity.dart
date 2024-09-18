@@ -1,7 +1,7 @@
 import '../../../../core/constants/error_model.dart';
 
-class AddCategoryEntity {
-  AddCategoryEntity({
+class AddProductEntity {
+  AddProductEntity({
     bool? isSuccess,
     List<Errors>? errors,
     int? data,}){

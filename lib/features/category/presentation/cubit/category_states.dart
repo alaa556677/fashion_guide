@@ -2,10 +2,11 @@ abstract class CategoryStates{}
 
 class InitialCategoryState extends CategoryStates{}
 
-class AddProductLoadingState extends CategoryStates{}
+class AddCategoryLoadingState extends CategoryStates{}
 
-class AddProductFailureState extends CategoryStates{}
+class AddCategoryFailureState extends CategoryStates{}
 
-class AddProductErrorState extends CategoryStates{}
+class AddCategoryErrorState extends CategoryStates{}
 
-class AddProductSuccessState extends CategoryStates{}
+class AddCategorySuccessState extends CategoryStates{}
+

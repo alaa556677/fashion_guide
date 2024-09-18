@@ -1,4 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../../core/constants/enum_constants.dart';
+import '../../../../core/shared/cache_helper.dart';
 import '../../../../main.dart';
 import '../../domain/use_cases/login_use_case.dart';
 import '../../domain/use_cases/register_use_case.dart';
@@ -37,6 +39,8 @@ class AuthCubit extends Cubit <AuthStates>{
       emit(LoginFailureState());
     },(signin) {
       if (signin.isSuccess == true) {
+        CacheHelper.saveData(key: Constants.token.toString(), value: signin.data?.token);
+        CacheHelper.saveData(key: Constants.refreshToken.toString(), value: signin.data?.refreshToken);
         emit(LoginSuccessState());
       } else {
         errorMessage = signin.errors?.first.message;

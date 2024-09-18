@@ -2,8 +2,8 @@
 import '../../../../core/constants/error_model.dart';
 import '../../domain/entity/add_category_entity.dart';
 
-class AddCategoryModel extends AddCategoryEntity{
-  AddCategoryModel({
+class AddProductModel extends AddProductEntity{
+  AddProductModel({
       bool? isSuccess,
       List<Errors>? errors,
       int? data,}){
@@ -12,7 +12,7 @@ class AddCategoryModel extends AddCategoryEntity{
     _data = data;
 }
 
-  AddCategoryModel.fromJson(dynamic json) {
+  AddProductModel.fromJson(dynamic json) {
     _isSuccess = json['isSuccess'];
     if (json['errors'] != null) {
       _errors = [];
