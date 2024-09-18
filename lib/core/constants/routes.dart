@@ -8,4 +8,6 @@ class Routes{
   static const String onBoardingScreen = '/onBoardingScreen';
   static const String productsDataScreen = '/productsDataScreen';
   static const String homeScreen = '/homeScreen';
+  static const String addProductScreen = '/addProductScreen';
+  static const String addCategoryScreen = '/addCategoryScreen';
 }

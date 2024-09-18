@@ -6,6 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../../../core/constants/icons_path.dart';
 import '../../../../core/constants/images_path.dart';
 import '../../../../core/styles/colors.dart';
+import '../../../../core/widgets/button_default.dart';
 import '../../../../core/widgets/search_text_form_field.dart';
 import '../../../../core/widgets/text_default.dart';
 import '../cubit/home_cubit.dart';
@@ -105,12 +106,30 @@ class _HomeScreenState extends State<HomeScreen>
               child: TabBarView(
                 controller: _tabController,
                 physics: const NeverScrollableScrollPhysics(),
-                children: const [
+                children:  [
                   ProductsHomeScreen(),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                    ],
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 22,vertical: 12),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(height: 22.h,),
+                        SvgPicture.asset(
+                          'assets/images/add_product.svg',
+                          height: MediaQuery.of(context).size.height * 0.2,
+
+                        ),
+                        SizedBox(height: 22.h,),
+                        ButtonCustomWidget(
+                          text: 'Add Product',
+                          color: AppColors.whiteColor,
+                          onPressed: (){},
+                          buttonHeight: 48.h,
+                          buttonColor: AppColors.tabTextSelected ,
+                        ),
+                      ],
+                    ),
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,

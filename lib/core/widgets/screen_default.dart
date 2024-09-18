@@ -10,6 +10,7 @@ class DefaultScreen extends StatelessWidget{
   final List<Widget>? actions;
   final double horizontalPadding;
   final double topPadding;
+  final bool centerTitle;
 
   const DefaultScreen({super.key,
     this.backgroundColor,
@@ -20,6 +21,7 @@ class DefaultScreen extends StatelessWidget{
     this.body,
     this.horizontalPadding = 20,
     this.topPadding = 0,
+    this.centerTitle = false
   });
   @override
   Widget build(BuildContext context) {
@@ -36,6 +38,7 @@ class DefaultScreen extends StatelessWidget{
           ),
           title: titleWidget,
           actions: actions,
+          centerTitle:centerTitle ,
         ),
       ),
       bottomNavigationBar: bottomNavigationBar,

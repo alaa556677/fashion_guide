@@ -17,7 +17,6 @@ import '../../../../core/widgets/search_text_form_field.dart';
 import '../../../../core/widgets/text_default.dart';
 import '../../../../core/widgets/text_form_field_default.dart';
 import '../cubit/auth_cubit.dart';
-import 'package:fashion_guide/locator.dart' as di;
 
 import '../widgets/top_circle.dart';
 

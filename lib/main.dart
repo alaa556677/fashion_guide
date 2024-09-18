@@ -1,5 +1,6 @@
 import 'package:fashion_guide/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:fashion_guide/features/company/presentation/pages/chat_screen.dart';
+import 'package:fashion_guide/features/products/presentation/pages/add_product_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -11,6 +12,8 @@ import 'features/auth/presentation/pages/login_screen.dart';
 import 'features/auth/presentation/pages/register_screen.dart';
 import 'features/base_screen/presentation/cubit/base_screen_cubit.dart';
 import 'features/base_screen/presentation/pages/base_screen.dart';
+import 'features/category/presentation/cubit/category_cubit.dart';
+import 'features/category/presentation/pages/add_category_page.dart';
 import 'features/company/presentation/pages/company_data_screen.dart';
 import 'features/home/presentation/pages/home_screen.dart';
 import 'features/home/presentation/cubit/home_cubit.dart';
@@ -53,6 +56,7 @@ class MyApp extends StatelessWidget {
             BlocProvider<HomeCubit>(create: (_) => di.locator<HomeCubit>()..initDummy(),),
             BlocProvider<ProductsCubit>(create: (_) => di.locator<ProductsCubit>() ,),
             BlocProvider<AuthCubit>(create: (_) => di.locator<AuthCubit>(),),
+            BlocProvider<CategoryCubit>(create: (_) => di.locator<CategoryCubit>(),),
           ],
           child: MaterialApp(
             navigatorKey: navigatorKey,
@@ -88,6 +92,12 @@ class MyApp extends StatelessWidget {
                 case Routes.homeScreen:
                   wid = const HomeScreen();
                   break;
+                case Routes.addProductScreen:
+                  wid = const AddProductPage();
+                  break;
+                case Routes.addCategoryScreen:
+                  wid = AddCategoryPage();
+                  break;
               }
               if (wid != null) {
                 return PageRouteBuilder(
@@ -100,7 +110,7 @@ class MyApp extends StatelessWidget {
               return null;
             },
             navigatorObservers: [RouteObserver<PageRoute>()],
-            initialRoute: Routes.login,
+            initialRoute: Routes.addCategoryScreen,
           ),
         );
       },

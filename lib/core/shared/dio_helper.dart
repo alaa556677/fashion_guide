@@ -138,7 +138,7 @@ class DioHelper {
     );
   }
 
-  static Future<Response> getPostUpdatePhotoUser({
+  static Future<Response> postMultiPartData({
     @required String? url,
     @required dynamic data,
     String? token,

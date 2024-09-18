@@ -22,6 +22,7 @@ class AppColors {
   static Color chatHintColor = HexColor('#929FB2');
   static Color greyColor = HexColor('#424040');
   static Color hintColor = HexColor('#949090');
+  static Color brush = HexColor('#274268');
 }
 
 

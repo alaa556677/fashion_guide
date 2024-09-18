@@ -61,58 +61,67 @@ class _DefaultTextFormFieldState extends State<DefaultTextFormField> {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      onTap: widget.onTap,
-      readOnly: widget.readOnly ?? false,
-      onChanged:(value)=> widget.onChanged?.call(value),
-      validator: widget.validator,
-      onFieldSubmitted: widget.onSubmitted,
-      controller: widget.controller,
-      keyboardType: widget.textInputType,
-      obscureText: widget.obscureText,
-      maxLines: widget.maxLines??1,
-      style: TextStyle(color:widget.hintColor,fontSize:widget.fontSize,fontFamily: 'Dexef' ),
-      decoration: InputDecoration(
-        suffixIcon: widget.suffix,
-        prefixIcon: widget.prefix,
-        filled: true,
-        fillColor: widget.filledColor ,
-        contentPadding:
-        EdgeInsets.symmetric(horizontal: 7.w,vertical: 3.h),
-        hintText: '${widget.hintText}',
-        hintStyle: TextStyle(fontSize:widget.hintTextSize?? 14.sp, color:widget.hintColor ??AppColors.hintColor,fontFamily: 'Dexef',),
-        border:  widget.border ?? OutlineInputBorder(
-          borderRadius: BorderRadius.circular(widget.borderRadius ??10.r),
-          borderSide: const BorderSide(),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(widget.borderRadius ??10.r),
-          borderSide: const BorderSide(
-            color: Colors.transparent,
+    return Container(
+      height: widget.height,
+      // width: widget.width,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: Colors.transparent),
+      ),
+      child: TextFormField(
+        onTap: widget.onTap,
+        readOnly: widget.readOnly ?? false,
+        onChanged:(value)=> widget.onChanged?.call(value),
+        validator: widget.validator,
+        onFieldSubmitted: widget.onSubmitted,
+        controller: widget.controller,
+        keyboardType: widget.textInputType,
+        obscureText: widget.obscureText,
+        maxLines: widget.maxLines??1,
+        style: TextStyle(color:widget.hintColor,fontSize:widget.fontSize,fontFamily: 'Dexef' ),
+        decoration: InputDecoration(
+          suffixIcon: widget.suffix,
+          prefixIcon: widget.prefix,
+          filled: true,
+          fillColor: widget.filledColor ,
+          contentPadding:
+          EdgeInsets.symmetric(horizontal: 7.w,vertical: 3.h),
+          hintText: '${widget.hintText}',
+          hintStyle: TextStyle(fontSize:widget.hintTextSize?? 12.sp, color:widget.hintColor ??AppColors.hintColor,fontFamily: 'Dexef',),
+          border:  widget.border ?? OutlineInputBorder(
+            borderRadius: BorderRadius.circular(widget.borderRadius ??10.r),
+            borderSide: const BorderSide(),
           ),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(widget.borderRadius ??10.r),
-          borderSide:  const BorderSide(
-            color: Colors.transparent,
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(widget.borderRadius ??10.r),
+            borderSide: const BorderSide(
+              color: Colors.transparent,
+            ),
           ),
-        ),
-        errorStyle: TextStyle(fontSize: 12.sp,),
-        errorBorder: OutlineInputBorder(
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(widget.borderRadius ??10.r),
+            borderSide:  const BorderSide(
+              color: Colors.transparent,
+            ),
+          ),
+          errorStyle: TextStyle(fontSize: 12.sp,),
+          errorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(widget.borderRadius ??10.r),
+              borderSide: const BorderSide(
+                width: 1,
+                color: Colors.red,
+              )),
+          focusedErrorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(widget.borderRadius ??10.r),
             borderSide: const BorderSide(
               width: 1,
               color: Colors.red,
-            )),
-        focusedErrorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(widget.borderRadius ??10.r),
-          borderSide: const BorderSide(
-            width: 1,
-            color: Colors.red,
+            ),
           ),
         ),
-      ),
 
+      ),
     );
   }
 }
