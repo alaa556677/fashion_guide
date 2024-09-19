@@ -52,14 +52,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
           }
         },
         builder:  (context, state) {
-          return SingleChildScrollView(
-            child: Container(
-              color: Color(0xffF1F0F0),
-              // width: MediaQuery.of(context).size.width,
-              // height: MediaQuery.of(context).size.height,
-              child:
-              Form(
-                key: formKey,
+          return Container(
+            color: Color(0xffF1F0F0),
+            height: MediaQuery.of(context).size.height,
+            child:
+            Form(
+              key: formKey,
+              child: SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -255,27 +254,28 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ],
                     ),
                     SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.29,
+                      height: MediaQuery.of(context).size.height * 0.4,
                       child: Stack(
                         children: [
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  SizedBox(
-                                    width: MediaQuery.of(context).size.width,
-                                    height: MediaQuery.of(context).size.height * 0.075,
-                                    child: Transform.scale(
-                                      scale: 7.r,
-                                      child: SvgPicture.asset('assets/images/register_bottom_circle.svg'),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
+                          Image.asset('assets/images/signup_circle.PNG',width: double.infinity,fit: BoxFit.fill,),
+                          // Column(
+                          //   mainAxisAlignment: MainAxisAlignment.end,
+                          //   children: [
+                          //     Row(
+                          //       mainAxisAlignment: MainAxisAlignment.end,
+                          //       children: [
+                          //         SizedBox(
+                          //           width: MediaQuery.of(context).size.width,
+                          //           height: MediaQuery.of(context).size.height * 0.075,
+                          //           child: Transform.scale(
+                          //             scale: 7.r,
+                          //             child: SvgPicture.asset('assets/images/register_bottom_circle.svg'),
+                          //           ),
+                          //         ),
+                          //       ],
+                          //     ),
+                          //   ],
+                          // ),
                           Padding(
                             padding:  EdgeInsets.symmetric(horizontal: 24.w),
                             child: Column(

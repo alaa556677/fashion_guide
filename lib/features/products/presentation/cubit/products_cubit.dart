@@ -32,12 +32,12 @@ class ProductsCubit extends Cubit <ProductsStates>{
     emit(AddProductLoadingState());
     final result = await addProductUseCase(name, price, description, discount,categoryId,image,imageByte,isImageExist);
     result.fold((failure) {
-      emit(AddProductFailureState());
-    }, (createWorkSpace) {
-      if (createWorkSpace.isSuccess == true) {
+      emit(AddProductFailureState(failure.errorMessage));
+    }, (addProduct) {
+      if (addProduct.isSuccess == true) {
         emit(AddProductSuccessState());
       } else {
-        emit(AddProductErrorState());
+        emit(AddProductErrorState(addProduct.errors!.first.message!));
       }
     });
   }

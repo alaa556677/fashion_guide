@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../../../core/constants/navigate_methods.dart';
 import '../../../../core/constants/routes.dart';
@@ -50,8 +51,12 @@ class _AddProductPageState extends State<AddProductPage> {
     return BlocConsumer<ProductsCubit, ProductsStates>(
       listener: (context, state) {
         if(state is AddProductSuccessState){
+          Fluttertoast.showToast(msg: 'Product Added Successfully',backgroundColor: AppColors.tabTextSelected);
           navigateToAndRemoveNamed(route: Routes.baseScreen);
-
+        }else if (state is AddProductFailureState){
+          if(state.message.contains('500') && ProductsCubit.instance.filePath == null ){
+            Fluttertoast.showToast(msg: 'Please add an image',backgroundColor: Colors.red);
+          }
         }
       },
       builder: (context, state) {
@@ -68,10 +73,8 @@ class _AddProductPageState extends State<AddProductPage> {
 
           body:
           state is GetCategoriesLoadingState
-              ? LinearProgressIndicator(
-            minHeight: 0.5,
-          )
-          :SingleChildScrollView(
+              ? Center(child: Image.asset('assets/images/loading_icon.gif'))
+          : SingleChildScrollView(
             child: Column(
               children: [
                 SizedBox(height: 20.h,),
@@ -182,12 +185,6 @@ class _AddProductPageState extends State<AddProductPage> {
                               ?? ProductsCubit.instance.categoriesEntity?.data?.first.name ?? ''  ,
                           items:  ProductsCubit.instance.categoriesEntity?.data,
                           enabled: true,
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'required';
-                            }
-                            return null;
-                          },
                           onChange: (val) {
                             ProductsCubit.instance.changeSelectedProduct(val);
                             setState(() {});

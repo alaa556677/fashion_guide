@@ -5,9 +5,15 @@ class InitialProductsState extends ProductsStates{}
 
 class AddProductLoadingState extends ProductsStates{}
 
-class AddProductFailureState extends ProductsStates{}
+class AddProductFailureState extends ProductsStates{
+  String message;
+  AddProductFailureState(this.message);
+}
 
-class AddProductErrorState extends ProductsStates{}
+class AddProductErrorState extends ProductsStates{
+  String message;
+  AddProductErrorState(this.message);
+}
 
 class AddProductSuccessState extends ProductsStates{}
 

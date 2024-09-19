@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../../../core/constants/icons_path.dart';
 import '../../../../core/constants/navigate_methods.dart';
@@ -34,6 +35,7 @@ class LoginScreen extends StatelessWidget {
       body: BlocConsumer<AuthCubit , AuthStates>(
         listener: (context, state) {
           if(state is LoginSuccessState ){
+
             navigateToAndRemoveNamed(route:Routes.baseScreen);
           }
         },

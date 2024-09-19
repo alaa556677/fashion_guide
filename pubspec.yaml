@@ -53,7 +53,8 @@ dependencies:
   get_it:
   image_picker:
   dropdown_search: ^5.0.6
-  pretty_dio_logger: ^1.4.0
+  pretty_dio_logger:
+  fluttertoast:
 
 dev_dependencies:
   flutter_test:
