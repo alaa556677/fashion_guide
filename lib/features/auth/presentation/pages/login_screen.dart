@@ -1,11 +1,8 @@
 import 'package:fashion_guide/features/auth/presentation/cubit/auth_states.dart';
-import 'package:fashion_guide/features/base_screen/presentation/pages/base_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-
 import '../../../../core/constants/icons_path.dart';
 import '../../../../core/constants/navigate_methods.dart';
 import '../../../../core/constants/routes.dart';
@@ -13,10 +10,7 @@ import '../../../../core/styles/colors.dart';
 import '../../../../core/widgets/button_default.dart';
 import '../../../../core/widgets/default_text_form_field.dart';
 import '../../../../core/widgets/password_text_field.dart';
-import '../../../../core/widgets/richText_default.dart';
-import '../../../../core/widgets/search_text_form_field.dart';
 import '../../../../core/widgets/text_default.dart';
-import '../../../../core/widgets/text_form_field_default.dart';
 import '../cubit/auth_cubit.dart';
 
 import '../widgets/top_circle.dart';

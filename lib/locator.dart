@@ -10,10 +10,14 @@ import 'features/auth/presentation/cubit/auth_cubit.dart';
 import 'features/base_screen/presentation/cubit/base_screen_cubit.dart';
 import 'features/category/data/data_source/add_category_data_source.dart';
 import 'features/category/data/data_source/categories_data_source.dart';
+import 'features/category/data/data_source/delete_category_data_source.dart';
+import 'features/category/data/data_source/update_category_data_source.dart';
 import 'features/category/data/repository/category_repository_impl.dart';
 import 'features/category/domain/repository/category_repository.dart';
 import 'features/category/domain/use_cases/add_category_use_case.dart';
 import 'features/category/domain/use_cases/categories_use_case.dart';
+import 'features/category/domain/use_cases/delete_category_use_case.dart';
+import 'features/category/domain/use_cases/update_category_use_case.dart';
 import 'features/category/presentation/cubit/category_cubit.dart';
 import 'features/home/presentation/cubit/home_cubit.dart';
 import 'features/onBoarding/presentation/cubit/onBoarding_cubit.dart';
@@ -32,7 +36,7 @@ void setup() {
   locator.registerFactory(() => HomeCubit());
   locator.registerFactory(() => BaseScreenCubit());
   locator.registerFactory(() => ProductsCubit(locator(),locator()));
-  locator.registerFactory(() => CategoryCubit(locator()));
+  locator.registerFactory(() => CategoryCubit(locator(),locator(),locator(),locator()));
 
 ///////////////////////////////////// data source
   locator.registerLazySingleton<RegisterDataSource>(() => RegisterDataSource());
@@ -40,6 +44,8 @@ void setup() {
   locator.registerLazySingleton<AddProductDataSource>(() => AddProductDataSource());
   locator.registerLazySingleton<AddCategoryDataSource>(() => AddCategoryDataSource());
   locator.registerLazySingleton<AllCategoriesDataSource>(() => AllCategoriesDataSource());
+  locator.registerLazySingleton<UpdateCategoryDataSource>(() => UpdateCategoryDataSource());
+  locator.registerLazySingleton<DeleteCategoryDataSource>(() => DeleteCategoryDataSource());
 
 
 /////////////////////////////////////////// use case
@@ -48,6 +54,8 @@ void setup() {
   locator.registerLazySingleton<AddProductUseCase>(() => AddProductUseCase(locator(),));
   locator.registerLazySingleton<AddCategoryUseCase>(() => AddCategoryUseCase(locator(),));
   locator.registerLazySingleton<AllCategoriesUseCase>(() => AllCategoriesUseCase(locator(),));
+  locator.registerLazySingleton<UpdateCategoryUseCase>(() => UpdateCategoryUseCase(locator(),));
+  locator.registerLazySingleton<DeleteCategoryUseCase>(() => DeleteCategoryUseCase(locator(),));
 
 
   ////////////////////////////////////////////////////////// repository
@@ -56,6 +64,6 @@ void setup() {
   locator.registerLazySingleton<ProductRepo>(() =>
       ProductRepoImpl(locator(),));
   locator.registerLazySingleton<CategoryRepo>(() =>
-      CategoryRepoImpl(locator(),locator()));
+      CategoryRepoImpl(locator(),locator(),locator(),locator()));
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 }

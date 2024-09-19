@@ -1,13 +1,13 @@
 import '../../../../core/constants/error_model.dart';
-import '../../domain/entity/delete_category_entity.dart';
+import '../../domain/entity/update_category_entity.dart';
 
-class DeleteCategoryModel extends DeleteCategoryEntity{
-  DeleteCategoryModel({
-    this.isSuccess,
-    this.errors,
-    this.data,});
+class UpdateCategoryModel extends UpdateCategoryEntity{
+  UpdateCategoryModel({
+      this.isSuccess, 
+      this.errors, 
+      this.data,});
 
-  DeleteCategoryModel.fromJson(dynamic json) {
+  UpdateCategoryModel.fromJson(dynamic json) {
     isSuccess = json['isSuccess'];
     if (json['errors'] != null) {
       errors = [];
