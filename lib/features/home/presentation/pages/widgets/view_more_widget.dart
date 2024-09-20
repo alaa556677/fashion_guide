@@ -45,6 +45,7 @@ class ViewMoreWidget extends StatelessWidget{
           ],
         ),
         SizedBox(height: 18.h,),
+
         SizedBox(
           height: list.length > 2 ? 650.h : 300.h,
           width: MediaQuery.of(context).size.width,

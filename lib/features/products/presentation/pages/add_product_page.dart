@@ -2,15 +2,15 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:fashion_guide/core/custom_drop_down_search.dart';
-import 'package:fashion_guide/features/category/presentation/cubit/category_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-
+import '../../../../core/constants/enum_constants.dart';
 import '../../../../core/constants/navigate_methods.dart';
 import '../../../../core/constants/routes.dart';
+import '../../../../core/shared/cache_helper.dart';
 import '../../../../core/styles/colors.dart';
 import '../../../../core/widgets/button_default.dart';
 import '../../../../core/widgets/default_text_form_field.dart';
@@ -47,13 +47,21 @@ class _AddProductPageState extends State<AddProductPage> {
     bool? isError = false;
   @override
   Widget build(BuildContext context) {
-
+    bool isAddProduct = CacheHelper.getData(key: Constants.addProduct.toString());
+    int productId = CacheHelper.getData(key: Constants.productId.toString());
     return BlocConsumer<ProductsCubit, ProductsStates>(
       listener: (context, state) {
         if(state is AddProductSuccessState){
           Fluttertoast.showToast(msg: 'Product Added Successfully',backgroundColor: AppColors.tabTextSelected);
           navigateToAndRemoveNamed(route: Routes.baseScreen);
+        }else if(state is UpdateProductSuccessState){
+          Fluttertoast.showToast(msg: 'Product Updated  Successfully',backgroundColor: AppColors.tabTextSelected);
+          navigateToAndRemoveNamed(route: Routes.baseScreen);
         }else if (state is AddProductFailureState){
+          if(state.message.contains('500') && ProductsCubit.instance.filePath == null ){
+            Fluttertoast.showToast(msg: 'Please add an image',backgroundColor: Colors.red);
+          }
+        }else if (state is UpdateProductFailureState){
           if(state.message.contains('500') && ProductsCubit.instance.filePath == null ){
             Fluttertoast.showToast(msg: 'Please add an image',backgroundColor: Colors.red);
           }
@@ -80,7 +88,7 @@ class _AddProductPageState extends State<AddProductPage> {
                 SizedBox(height: 20.h,),
                 InputDecorator(
                   decoration: InputDecoration(
-                    labelText: 'Add Product',
+                    labelText: isAddProduct ?  'Add Product' : 'Update Product',
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12.0),
                     ),
@@ -220,7 +228,7 @@ class _AddProductPageState extends State<AddProductPage> {
                   buttonHeight: 42.h,
                   onPressed: (){
                     if (formKey.currentState!.validate()) {
-                      ProductsCubit.instance.addProduct(
+                      isAddProduct ? ProductsCubit.instance.addProduct(
                         name: nameController.text,
                         price: double.tryParse(priceController.text)!,
                         description: descriptionController.text,
@@ -235,7 +243,23 @@ class _AddProductPageState extends State<AddProductPage> {
                             : ProductsCubit.instance.filePath!,
                         isImageExist: ProductsCubit.instance.filePath == null ? false : true,
                         imageByte:  ProductsCubit.instance.filePath == null ? Uint8List(10) : ProductsCubit.instance.imageByte,
-                      );
+                      ):ProductsCubit.instance.updateProduct(
+                        id: productId,
+                        name: nameController.text,
+                        price: double.tryParse(priceController.text)!,
+                        description: descriptionController.text,
+                        discount:double.tryParse(discountController.text)!,
+                        categoryId:  ProductsCubit.instance.selectedProductItem != null
+                            ? ProductsCubit.instance.selectedProductItem!.id!.toInt()
+                            : ProductsCubit.instance.categoriesEntity!.data != null
+                            ? ProductsCubit.instance.categoriesEntity!.data!.first.id!.toInt()
+                            :0,
+                        image: ProductsCubit.instance.filePath == null
+                            ? File("")
+                            : ProductsCubit.instance.filePath!,
+                        isImageExist: ProductsCubit.instance.filePath == null ? false : true,
+                        imageByte:  ProductsCubit.instance.filePath == null ? Uint8List(10) : ProductsCubit.instance.imageByte,
+                      );;
                       setState(() {
                         isError = ProductsCubit.instance.filePath == null ? true : false;
                       });

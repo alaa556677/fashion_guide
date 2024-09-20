@@ -110,7 +110,7 @@ class MyApp extends StatelessWidget {
               return null;
             },
             navigatorObservers: [RouteObserver<PageRoute>()],
-            initialRoute: Routes.register,
+            initialRoute: Routes.baseScreen,
           ),
         );
       },

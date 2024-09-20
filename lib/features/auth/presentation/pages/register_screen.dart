@@ -254,34 +254,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ],
                     ),
                     SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.4,
+                      height: MediaQuery.of(context).size.height * 0.35,
                       child: Stack(
                         children: [
                           Image.asset('assets/images/signup_circle.PNG',width: double.infinity,fit: BoxFit.fill,),
-                          // Column(
-                          //   mainAxisAlignment: MainAxisAlignment.end,
-                          //   children: [
-                          //     Row(
-                          //       mainAxisAlignment: MainAxisAlignment.end,
-                          //       children: [
-                          //         SizedBox(
-                          //           width: MediaQuery.of(context).size.width,
-                          //           height: MediaQuery.of(context).size.height * 0.075,
-                          //           child: Transform.scale(
-                          //             scale: 7.r,
-                          //             child: SvgPicture.asset('assets/images/register_bottom_circle.svg'),
-                          //           ),
-                          //         ),
-                          //       ],
-                          //     ),
-                          //   ],
-                          // ),
                           Padding(
                             padding:  EdgeInsets.symmetric(horizontal: 24.w),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                SizedBox(height: 18.h,),
+                                SizedBox(height: 22.h,),
                                 ButtonCustomWidget(
                                   text: 'Sign Up',
                                   buttonHeight: 40.h,

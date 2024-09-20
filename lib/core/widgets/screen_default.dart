@@ -7,10 +7,12 @@ class DefaultScreen extends StatelessWidget{
   final Widget? titleWidget;
   final Widget? bottomNavigationBar;
   final Widget? body;
+  final Widget? floatingActionButton;
   final List<Widget>? actions;
   final double horizontalPadding;
   final double topPadding;
   final bool centerTitle;
+
 
   const DefaultScreen({super.key,
     this.backgroundColor,
@@ -21,7 +23,8 @@ class DefaultScreen extends StatelessWidget{
     this.body,
     this.horizontalPadding = 20,
     this.topPadding = 0,
-    this.centerTitle = false
+    this.centerTitle = false,
+    this.floatingActionButton
   });
   @override
   Widget build(BuildContext context) {
@@ -49,6 +52,8 @@ class DefaultScreen extends StatelessWidget{
             top : topPadding
           ),
           child: body),
+      floatingActionButton: floatingActionButton,
+      // floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterDocked,
     );
   }
 }

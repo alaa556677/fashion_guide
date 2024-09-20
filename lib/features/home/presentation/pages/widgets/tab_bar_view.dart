@@ -51,7 +51,7 @@ class _TabBarViewBaseScreenWidgetState extends State<TabBarViewBaseScreenWidget>
           ),
           Tab(
             child: TextWidget(
-              text: 'Companys',
+              text: 'Categories',
             ),
           ),
           Tab(

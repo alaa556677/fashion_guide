@@ -1,4 +1,8 @@
 enum Constants {
   token,
-  refreshToken
+  refreshToken,
+  addCategory,
+  categoryId,
+  addProduct,
+  productId
 }

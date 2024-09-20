@@ -39,11 +39,11 @@ class CategoryCubit extends Cubit <CategoryStates>{
     final result = await updateCategoryUseCase(name,id);
     result.fold((failure) {
       emit(UpdateCategoryFailureState(failure.errorMessage));
-    },(updateCategory) {
-      if (updateCategory.isSuccess == true) {
+    },(update) {
+      if (update.isSuccess == true) {
         emit(UpdateCategorySuccessState());
       } else {
-        emit(UpdateCategoryErrorState(updateCategory.errors!.first.message!));
+        emit(UpdateCategoryErrorState(update.errors!.first.message!));
       }
     });
   }
@@ -56,11 +56,11 @@ class CategoryCubit extends Cubit <CategoryStates>{
     final result = await deleteCategoryUseCase(id);
     result.fold((failure) {
       emit(DeleteCategoryFailureState(failure.errorMessage));
-    },(updateCategory) {
-      if (updateCategory.isSuccess == true) {
+    },(delete) {
+      if (delete.isSuccess == true) {
         emit(DeleteCategorySuccessState());
       } else {
-        emit(DeleteCategoryErrorState(updateCategory.errors!.first.message!));
+        emit(DeleteCategoryErrorState(delete.errors!.first.message!));
       }
     });
   }

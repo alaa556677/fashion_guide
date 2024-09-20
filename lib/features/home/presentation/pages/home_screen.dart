@@ -1,8 +1,13 @@
+import 'package:fashion_guide/core/shared/cache_helper.dart';
+import 'package:fashion_guide/features/category/presentation/cubit/category_cubit.dart';
 import 'package:fashion_guide/features/home/presentation/pages/widgets/tab_bar_view.dart';
+import 'package:fashion_guide/features/products/presentation/cubit/products_cubit.dart';
+import 'package:fashion_guide/features/products/presentation/cubit/products_states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import '../../../../core/constants/enum_constants.dart';
 import '../../../../core/constants/icons_path.dart';
 import '../../../../core/constants/images_path.dart';
 import '../../../../core/constants/navigate_methods.dart';
@@ -34,6 +39,8 @@ class _HomeScreenState extends State<HomeScreen>
     _tabController.addListener(() {
       HomeCubit.instance.changeTabBarIndex(_tabController.index);
     });
+    CategoryCubit.instance.getAllCategories();
+    ProductsCubit.instance.getAllProducts();
     super.initState();
   }
 
@@ -110,36 +117,7 @@ class _HomeScreenState extends State<HomeScreen>
                 physics: const NeverScrollableScrollPhysics(),
                 children:  [
                   ProductsHomeScreen(),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 22,vertical: 12),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(height: 22.h,),
-                        ButtonCustomWidget(
-                          text: 'Add Category',
-                          color: AppColors.whiteColor,
-                          onPressed: (){
-                            navigateToNamed(route: Routes.addCategoryScreen);
-                          },
-                          buttonHeight: 48.h,
-                          buttonColor: AppColors.tabTextSelected ,
-                        ),
-                        SizedBox(height: 22.h,),
-                        ButtonCustomWidget(
-                          text: 'Add Product',
-                          color: AppColors.whiteColor,
-                          onPressed: (){
-                            navigateToNamed(route: Routes.addProductScreen);
-
-                          },
-                          buttonHeight: 48.h,
-                          buttonColor: AppColors.tabTextSelected ,
-                        ),
-                      ],
-                    ),
-                  ),
+                  CategoriesHomeScreen(),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
@@ -150,6 +128,106 @@ class _HomeScreenState extends State<HomeScreen>
             ),
 
           ],
+        );
+      },
+    );
+  }
+}
+
+class CategoriesHomeScreen extends StatelessWidget {
+  const CategoriesHomeScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocConsumer<ProductsCubit, ProductsStates>(
+      listener: (context, state) {
+      },
+      builder: (context, state) {
+        return state is GetCategoriesLoadingState
+            ?  Center(child: Image.asset('assets/images/loading_icon.gif'))
+            : SingleChildScrollView(
+          child: Wrap(
+            spacing: 12,
+            runSpacing: 12,
+            // alignment: WrapAlignment.center,
+            children: CategoryCubit.instance.categoriesEntity!.data!.map((item){
+              return Container(
+                height: 120.h,
+                // width: 140.w,
+                decoration: BoxDecoration(
+                  color: AppColors.buttonColorCategory,
+                  borderRadius: BorderRadius.circular(12.r),
+                ),
+                // padding: EdgeInsetsDirectional.symmetric(horizontal: 16.w, vertical: 12.h),
+                child:Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Image.asset('assets/images/product-preview.png',
+                      width: MediaQuery.of(context).size.width *0.5,
+                      height: 200.h,
+                      fit: BoxFit.contain,
+                    ),
+                    TextWidget(
+                      text: item.name ?? '',
+                      fontColor: AppColors.textProductColor,
+                      fontSize: 22.sp,
+                      maxLines: 1,
+                      textOverflow: TextOverflow.ellipsis,
+                      fontWeight: FontWeight.w500,
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        IconButton(
+                          onPressed: (){
+                            CacheHelper.saveData(key:Constants.addCategory.toString(),value: false);
+                            CacheHelper.saveData(key:Constants.categoryId.toString(),value: item.id);
+                            navigateToNamed(route: Routes.addCategoryScreen);
+                          },
+                          icon:  Icon(Icons.edit,color: AppColors.tabTextSelected,),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                // Column(
+                //   crossAxisAlignment: CrossAxisAlignment.start,
+                //   children: [
+                //     Container(
+                //       height: 80.h,
+                //       decoration: BoxDecoration(
+                //           image: DecorationImage(
+                //             image: AssetImage('assets/images/product.png'),
+                //           )
+                //       ),
+                //     ),
+                //     SizedBox(height: 12.h,),
+                //     TextWidget(
+                //       text: item.name ?? '',
+                //       fontColor: AppColors.textProductColor,
+                //       fontSize: 18.sp,
+                //       maxLines: 1,
+                //       textOverflow: TextOverflow.ellipsis,
+                //       fontWeight: FontWeight.w500,
+                //     ),
+                //     SizedBox(height: 4.h,),
+                //     Row(
+                //       children: [
+                //        IconButton(
+                //            onPressed: (){},
+                //            icon:  Icon(Icons.edit),
+                //        ),
+                //         IconButton(
+                //           onPressed: (){},
+                //           icon:  Icon(Icons.delete),)
+                //       ],
+                //     ),
+                //   ],
+                // ),
+              );
+            }).toList(),
+          ),
         );
       },
     );
