@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import '../../../../core/constants/icons_path.dart';
 import '../../../../core/constants/navigate_methods.dart';
 import '../../../../core/constants/routes.dart';
@@ -29,8 +30,9 @@ class LoginScreen extends StatelessWidget {
       body: BlocConsumer<AuthCubit , AuthStates>(
         listener: (context, state) {
           if(state is LoginSuccessState ){
-
             navigateToAndRemoveNamed(route:Routes.baseScreen);
+          }else if (state is LoginFailureState || state is LoginErrorState){
+            Fluttertoast.showToast(msg: AuthCubit.instance.errorMessage??'Invalid login',backgroundColor: Colors.red);
           }
         },
         builder:  (context, state) {
@@ -150,14 +152,7 @@ class LoginScreen extends StatelessWidget {
                                   fontWeight: FontWeight.w500,
                                 ),
                               ),
-                              SizedBox(height: MediaQuery.of(context).size.height * 0.025,),
-
-                              TextWidget(
-                                  text: AuthCubit.instance.errorMessage ??'',
-                                  fontColor:Colors.red,
-                                  fontSize: 16.sp
-                              ),
-                              SizedBox(height: MediaQuery.of(context).size.height * 0.025,),
+                              SizedBox(height: MediaQuery.of(context).size.height * 0.04,),
                               ButtonCustomWidget(
                                 text: 'Sign In',
                                 buttonHeight: 40.h,

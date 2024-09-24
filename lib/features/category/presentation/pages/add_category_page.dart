@@ -24,8 +24,8 @@ class AddCategoryPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isAddCategory = CacheHelper.getData(key:Constants.addCategory.toString());
-    int categoryId = CacheHelper.getData(key:Constants.categoryId.toString());
+    bool isAddCategory = CacheHelper.getData(key:Constants.addCategory.toString()) ?? true;
+    int categoryId = CacheHelper.getData(key:Constants.categoryId.toString()) ?? 0;
 
     return BlocConsumer<CategoryCubit, CategoryStates>(
       listener: (context, state) {

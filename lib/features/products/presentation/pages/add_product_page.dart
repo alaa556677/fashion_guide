@@ -47,8 +47,8 @@ class _AddProductPageState extends State<AddProductPage> {
     bool? isError = false;
   @override
   Widget build(BuildContext context) {
-    bool isAddProduct = CacheHelper.getData(key: Constants.addProduct.toString());
-    int productId = CacheHelper.getData(key: Constants.productId.toString());
+    bool isAddProduct = CacheHelper.getData(key: Constants.addProduct.toString()) ?? true;
+    int productId = CacheHelper.getData(key: Constants.productId.toString()) ?? 0;
     return BlocConsumer<ProductsCubit, ProductsStates>(
       listener: (context, state) {
         if(state is AddProductSuccessState){
@@ -222,7 +222,7 @@ class _AddProductPageState extends State<AddProductPage> {
                 ),
                 SizedBox(height: 22.h,),
                 ButtonCustomWidget(
-                  text: 'Add Product',
+                  text:  isAddProduct ?  'Add Product' : 'Update Product',
                   buttonColor: AppColors.tabTextSelected,
                   color: Colors.white,
                   buttonHeight: 42.h,

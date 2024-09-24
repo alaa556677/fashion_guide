@@ -79,6 +79,86 @@ class ProductsHomeScreen extends StatelessWidget{
                   // alignment: WrapAlignment.center,
                   children: ProductsCubit.instance.allProductsEntity!.data!.map((item){
                     return Container(
+                      height: 272.h,
+                      width: 160.w,
+                      decoration: BoxDecoration(
+                        color: AppColors.buttonColorCategory,
+                        borderRadius: BorderRadius.circular(12.r),
+                      ),
+                      padding: EdgeInsetsDirectional.symmetric(horizontal: 8.w, vertical: 12.h),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              IconButton(
+                                onPressed: (){
+                                  CacheHelper.saveData(key:Constants.addProduct.toString(),value: false);
+                                  CacheHelper.saveData(key:Constants.productId.toString(),value: item.id);
+                                  navigateToNamed(route: Routes.addProductScreen);
+                                },
+                                icon:Icon(Icons.edit,color: AppColors.tabTextSelected,),
+                              ),
+                            ],
+                          ),
+                          Container(
+                            height: 90.h,
+                            decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: AssetImage('assets/images/product-preview.png'),
+                                  fit: BoxFit.fill
+                                )
+                            ),
+                          ),
+                          SizedBox(height: 12.h,),
+                          SizedBox(
+                            height: 35.h,
+                            child: TextWidget(
+                              text: item.name!,
+                              fontColor: AppColors.textProductColor,
+                              fontSize: 14.sp,
+                              maxLines: 1,
+                              textOverflow: TextOverflow.ellipsis,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          SizedBox(height: 4.h,),
+                          TextWidget(
+                            text: 'description',
+                            fontColor: AppColors.textColorOnBoarding,
+                            fontSize: 14.sp,
+                            maxLines: 1,
+                            textOverflow: TextOverflow.ellipsis,
+                            fontWeight: FontWeight.w500,
+                          ),
+                          SizedBox(height: 6.h,),
+                          Row(
+                            children: [
+                              Row(
+                                children: [
+                                  TextWidget(
+                                    text: item.price.toString(),
+                                    fontColor: AppColors.buttonColorAll,
+                                    fontSize: 18.sp,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                  SizedBox(width: 8.w,),
+                                  TextWidget(
+                                    text: '\$',
+                                    fontColor: AppColors.blackColor,
+                                    fontSize: 18.sp,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ],
+                              )
+                            ],
+                          )
+                        ],
+                      ),
+                    );
+
+                      Container(
                       height: 120.h,
                       // width: 140.w,
                       decoration: BoxDecoration(
@@ -118,40 +198,6 @@ class ProductsHomeScreen extends StatelessWidget{
                           ),
                         ],
                       ),
-                      // Column(
-                      //   crossAxisAlignment: CrossAxisAlignment.start,
-                      //   children: [
-                      //     Container(
-                      //       height: 80.h,
-                      //       decoration: BoxDecoration(
-                      //           image: DecorationImage(
-                      //             image: AssetImage('assets/images/product.png'),
-                      //           )
-                      //       ),
-                      //     ),
-                      //     SizedBox(height: 12.h,),
-                      //     TextWidget(
-                      //       text: item.name ?? '',
-                      //       fontColor: AppColors.textProductColor,
-                      //       fontSize: 18.sp,
-                      //       maxLines: 1,
-                      //       textOverflow: TextOverflow.ellipsis,
-                      //       fontWeight: FontWeight.w500,
-                      //     ),
-                      //     SizedBox(height: 4.h,),
-                      //     Row(
-                      //       children: [
-                      //        IconButton(
-                      //            onPressed: (){},
-                      //            icon:  Icon(Icons.edit),
-                      //        ),
-                      //         IconButton(
-                      //           onPressed: (){},
-                      //           icon:  Icon(Icons.delete),)
-                      //       ],
-                      //     ),
-                      //   ],
-                      // ),
                     );
                   }).toList(),
                 );

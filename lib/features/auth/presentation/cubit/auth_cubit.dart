@@ -36,7 +36,7 @@ class AuthCubit extends Cubit <AuthStates>{
     final result = await loginUseCase(email,password);
     result.fold((failure) {
       errorMessage = failure.errorMessage;
-      emit(LoginFailureState());
+      emit(LoginFailureState(failure.errorMessage));
     },(signin) {
       if (signin.isSuccess == true) {
         CacheHelper.saveData(key: Constants.token.toString(), value: signin.data?.token);
@@ -44,7 +44,7 @@ class AuthCubit extends Cubit <AuthStates>{
         emit(LoginSuccessState());
       } else {
         errorMessage = signin.errors?.first.message;
-        emit(LoginErrorState());
+        emit(LoginErrorState(signin.errors!.first.message!));
       }
     });
   }
